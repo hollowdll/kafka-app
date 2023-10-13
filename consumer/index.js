@@ -1,5 +1,5 @@
 import { Kafka } from 'kafkajs';
-import { kafkaTopicName } from '../const.js';
+import { kafkaTopic, convertedResultTopic } from '../const.js';
 
 console.log('*** Consumer starts... ***');
 
@@ -11,15 +11,17 @@ const consumer = kafka.consumer({ groupId: 'kafka-consumers1' });
 
 const run = async () => {
     await consumer.connect();
-    await consumer.subscribe({ topic: kafkaTopicName, fromBeginning: true })
+    await consumer.subscribe({ topic: kafkaTopic, fromBeginning: true })
 
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
+            const celcius = (message.value - 32) * (5/9);
             console.log({
                 topic: topic,
                 key: message.key.toString(),
                 offset: message.offset,
-                value: message.value.toString(),
+                fahrenheit: message.value.toString(),
+                celsius: celcius.toFixed(2),
                 timestamp: new Date(parseInt(message.timestamp)).toISOString(),
             });
         }

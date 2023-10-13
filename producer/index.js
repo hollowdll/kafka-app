@@ -1,6 +1,6 @@
 import { Kafka, Partitioners } from 'kafkajs';
 import { v4 as UUID } from 'uuid';
-import { kafkaTopicName } from '../const.js';
+import { kafkaTopic, convertedResultTopic } from '../const.js';
 
 console.log('*** Consumer starts... ***');
 
@@ -20,14 +20,20 @@ function randomizeIntegerBetween(from, to) {
     return (Math.floor(Math.random() * (to - from + 1))) + from;
 }
 
+// Returns a random fahrenheit degree number between min and max
+function generateRandomizedFahrenheit(minFahrenheit, maxFahrenheit) {
+    return (Math.random() * (maxFahrenheit - minFahrenheit) + minFahrenheit).toFixed(2)
+}
+
 async function queueMessage() {
     const uuidFraction = UUID().substring(0,8);
     const success = await producer.send({
-        topic: kafkaTopicName,
+        topic: kafkaTopic,
         messages: [
             {
                 key: uuidFraction,
-                value: Buffer.from(idNumbers[randomizeIntegerBetween(0, idNumbers.length - 1)]),
+                // value: Buffer.from(idNumbers[randomizeIntegerBetween(0, idNumbers.length - 1)]),
+                value: generateRandomizedFahrenheit(-75, 150),
             }
         ]
     });

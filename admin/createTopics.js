@@ -1,5 +1,5 @@
 import { Kafka, logLevel } from 'kafkajs'; 
-import { kafkaTopicName } from '../const';
+import { kafkaTopicName } from '../const.js';
 console.log("*** Admin starts... (Only needed once for each created Kafka server, actually) ***");
 
 const kafka = new Kafka({

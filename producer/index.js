@@ -1,6 +1,6 @@
 import { Kafka, Partitioners } from 'kafkajs';
 import { v4 as UUID } from 'uuid';
-import { kafkaTopicName } from '../const';
+import { kafkaTopicName } from '../const.js';
 
 console.log('*** Consumer starts... ***');
 
@@ -21,7 +21,7 @@ function randomizeIntegerBetween(from, to) {
 }
 
 async function queueMessage() {
-    const uuidFraction = UUID().substring(0,4);
+    const uuidFraction = UUID().substring(0,8);
     const success = await producer.send({
         topic: kafkaTopicName,
         messages: [

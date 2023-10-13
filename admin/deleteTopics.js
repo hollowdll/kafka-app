@@ -1,5 +1,6 @@
 import { Kafka, logLevel } from 'kafkajs';
-import { kafkaTopicName } from '../const.js';
+import { kafkaTopic, convertedResultTopic } from '../const.js';
+
 console.log("*** Admin starts... (Run this only once for each created Kafka server) ***");
 
 const kafka = new Kafka({
@@ -13,13 +14,24 @@ const run = async () => {
     await admin.connect();
     const topics = await admin.listTopics();
 
-    if(topics.includes(kafkaTopicName)) {
+    if(topics.includes(kafkaTopic)) {
+        console.log(`Deleting topic ${kafkaTopic} ...`);
+
         await admin.deleteTopics({
-            topics: [kafkaTopicName],
-            timeout: 5000, // default: 5000
+            topics: [kafkaTopic],
         });
     } else {
-        console.log("Topics already deleted!");
+        console.log(`${kafkaTopic} already deleted!`);
+    }
+
+    if(topics.includes(convertedResultTopic)) {
+        console.log(`Deleting topic ${convertedResultTopic} ...`);
+
+        await admin.deleteTopics({
+            topics: [convertedResultTopic],
+        });
+    } else {
+        console.log(`${convertedResultTopic} already deleted!`);
     }
 
     await admin.disconnect()

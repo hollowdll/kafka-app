@@ -1,11 +1,11 @@
 // Original producer that generates random fahrenheit degrees
-// and listens for converted celcius degrees.
+// and receives converted celcius degrees.
 
 import { Kafka, Partitioners } from 'kafkajs';
 import { v4 as UUID } from 'uuid';
 import { kafkaTopic, convertedResultTopic } from '../const.js';
 
-console.log('*** Consumer starts... ***');
+console.log('*** Producer starts... ***');
 
 const kafka = new Kafka({
     clientId: 'kafka-app-producer',

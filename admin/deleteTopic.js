@@ -7,7 +7,6 @@ const kafka = new Kafka({
     brokers: ['localhost:9092'],
     logLevel: logLevel.INFO
 });
-
 const admin = kafka.admin();
 
 const run = async () => {

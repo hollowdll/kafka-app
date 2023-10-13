@@ -1,6 +1,9 @@
+// Creates topics if they don't exist
+
 import { Kafka, logLevel } from 'kafkajs'; 
 import { kafkaTopic, convertedResultTopic } from '../const.js';
-console.log("*** Admin starts... (Only needed once for each created Kafka server, actually) ***");
+
+console.log("*** Admin starts... ***");
 
 const kafka = new Kafka({
     clientId: 'my-admin-create-app',
@@ -9,7 +12,6 @@ const kafka = new Kafka({
 });
 const admin = kafka.admin();
 
-// Creates topics if they don't exist
 const run = async () => {
     await admin.connect();
     const topics = await admin.listTopics();

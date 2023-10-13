@@ -1,7 +1,9 @@
+// Deletes topics if they exist
+
 import { Kafka, logLevel } from 'kafkajs';
 import { kafkaTopic, convertedResultTopic } from '../const.js';
 
-console.log("*** Admin starts... (Run this only once for each created Kafka server) ***");
+console.log("*** Admin starts... ***");
 
 const kafka = new Kafka({
     clientId: 'my-admin-delete-app',
@@ -10,7 +12,6 @@ const kafka = new Kafka({
 });
 const admin = kafka.admin();
 
-// Deletes topics if they exist
 const run = async () => {
     await admin.connect();
     const topics = await admin.listTopics();
@@ -22,7 +23,7 @@ const run = async () => {
             topics: [kafkaTopic],
         });
     } else {
-        console.log(`${kafkaTopic} already deleted!`);
+        console.log(`Topic ${kafkaTopic} already deleted!`);
     }
 
     if(topics.includes(convertedResultTopic)) {
@@ -32,7 +33,7 @@ const run = async () => {
             topics: [convertedResultTopic],
         });
     } else {
-        console.log(`${convertedResultTopic} already deleted!`);
+        console.log(`Topic ${convertedResultTopic} already deleted!`);
     }
 
     await admin.disconnect()

@@ -1,0 +1,19 @@
+{
+  "name": "kafka-app",
+  "version": "1.0.0",
+  "description": "Kafka app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start:deleteTopics": "node ./admin/deleteTopics.js",
+    "start:createTopics": "node ./admin/createTopics.js",
+    "start:producer": "node ./producer/index.js",
+    "start:consumer": "node ./consumer/index.js"
+  },
+  "author": "Juuso Hakala",
+  "license": "MIT",
+  "dependencies": {
+    "kafkajs": "^2.2.4",
+    "uuid": "^9.0.1"
+  }
+}

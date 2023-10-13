@@ -9,6 +9,7 @@ const kafka = new Kafka({
 });
 const admin = kafka.admin();
 
+// Creates topics if they don't exist
 const run = async () => {
     await admin.connect();
     const topics = await admin.listTopics();
@@ -16,7 +17,7 @@ const run = async () => {
     if(!topics.includes(kafkaTopic) && !topics.includes(convertedResultTopic)) {
         console.log(`Creating topic ${kafkaTopic} ...`);
         console.log(`Creating topic ${convertedResultTopic} ...`);
-        
+
         await admin.createTopics({
             validateOnly: false,
             waitForLeaders: true,

@@ -10,6 +10,7 @@ const kafka = new Kafka({
 });
 const admin = kafka.admin();
 
+// Deletes topics if they exist
 const run = async () => {
     await admin.connect();
     const topics = await admin.listTopics();
